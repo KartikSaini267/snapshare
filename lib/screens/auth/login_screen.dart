@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../services/auth_service.dart';
 import 'signup_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -77,6 +78,40 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () => setState(() => _passwordVisible = !_passwordVisible),
                 ),
               ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () async {
+                    if (_emailController.text.trim().isEmpty) {
+                      setState(() => _errorMessage = 'Enter your email first.');
+                      return;
+                    }
+                    try {
+                      await FirebaseAuth.instance.sendPasswordResetEmail(
+                        email: _emailController.text.trim(),
+                      );
+                      setState(() => _errorMessage = '');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Password reset email sent!'),
+                          backgroundColor: Color(0xFFE1306C),
+                          behavior: SnackBarBehavior.floating,
+                        ),
+                      );
+                    } catch (e) {
+                      setState(() => _errorMessage = 'Could not send reset email.');
+                    }
+                  },
+                  child: Text(
+                    'Forgot Password?',
+                   style: TextStyle(
+                     color: Colors.white.withOpacity(0.5),
+                     fontSize: 13,
+                    ),
+                  ),
+                ),
+              ),
+
               const SizedBox(height: 12),
               if (_errorMessage.isNotEmpty) _buildError(_errorMessage),
               const SizedBox(height: 24),
