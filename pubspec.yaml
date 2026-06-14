@@ -1,0 +1,34 @@
+name: snapshare
+description: A social media app inspired by Instagram — built with Flutter & Firebase.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Firebase Core — required by every Firebase service
+  firebase_core: ^2.27.1
+
+  # Firebase Authentication — handles login / signup / logout
+  firebase_auth: ^4.18.0
+
+  # Firestore — our database (stores users, posts, and images as Base64)
+  cloud_firestore: ^4.17.2
+
+  # UUID — generates unique IDs for each post
+  uuid: ^4.3.3
+
+  cupertino_icons: ^1.0.6
+  image_picker: ^1.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
